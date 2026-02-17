@@ -1,0 +1,5 @@
+user_id,country,signup_date,plan_type
+U001,US,2023-01-05,basic
+U002,US,2023-01-15,standard
+U003,DE,2023-02-02,premium
+U004,IN,2023-02-20,basic
