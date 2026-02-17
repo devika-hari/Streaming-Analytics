@@ -1,0 +1,46 @@
+name: 'streaming_analytics_dbt'
+version: '1.0.0'
+config-version: 2
+
+# This setting configures which "profile" dbt uses for this project.
+profile: 'streaming_analytics_dbt'
+
+
+model-paths: ["models"]
+analysis-paths: ["analyses"]
+test-paths: ["tests"]
+seed-paths: ["seeds"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+clean-targets:         # directories to be removed by `dbt clean`
+  - "target"
+  - "dbt_packages"
+
+
+# Configuring models
+# Full documentation: https://docs.getdbt.com/docs/configuring-models
+
+
+models:
+  streaming_analytics_dbt:
+    # Config indicated by + and applies to all files under models/example/
+    staging:
+      +schema: staging
+      +materialized: view
+      +tags: 
+        - "staging"
+
+    marts:
+      +schema: marts
+      +materialized: table
+      +tags:
+        - "marts"
+
+    snapshots:
+      +schema: analytics
+      +materialized: table
+      +tags:
+        - "snapshots"
+
+

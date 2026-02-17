@@ -1,0 +1,6 @@
+streaming_analytics_dbt:
+  target: dev
+  outputs:
+    dev:
+      type: duckdb
+      path: /Users/KK/Downloads/Streaming_Analytics/streaming_analytics.duckdb
