@@ -1,0 +1,98 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: raw
+    tables:
+      - name: users
+        identifier: users_raw
+      - name: payments
+        identifier: payments_raw
+      - name: subscriptions
+        identifier: subscriptions_raw
+      - name: viewing_activity
+        identifier: viewing_activity_raw
+
+models:
+  - name: stg_users
+    description: "List of users with their plan and signup date"
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+      - name: signup_date
+        tests:
+          - not_null
+      - name: plan_type
+
+
+  - name: stg_payments
+    description: "Payments made by users"
+    columns:
+      - name: payment_id
+        tests:
+          - not_null
+      - name: user_id
+        tests:
+          - not_null
+      - name: amount
+        tests:
+          - not_null
+      - name: payment_date
+        tests:
+          - not_null
+
+  - name: stg_subscriptions
+    description: "User subscriptions with validity dates"
+    columns:
+      - name: subscription_id
+        tests:
+          - not_null
+      - name: user_id
+        tests:
+          - not_null
+      - name: monthly_price
+        tests:
+          - not_null
+      - name: start_date
+        tests:
+          - not_null
+ 
+
+  - name: stg_viewing_activity
+    description: "User viewing activity per day"
+    columns:
+      - name: user_id
+        tests:
+          - not_null
+      - name: watch_date
+        tests:
+          - not_null
+      - name: hours_watched
+        tests:
+          - not_null
+
+snapshots:
+  - name: subscription_snapshot_check
+    description: "SCD2 history of subscriptions - check strategy"
+    columns:
+      - name: subscription_id
+        description: "Business subscription ID"
+        tests:
+          - not_null
+      - name: start_date
+        description: "Start of snapshot period"
+      - name: end_date
+        description: "End of snapshot period"
+
+  - name: subscription_snapshot_timestamp
+    description: "SCD2 history of subscriptions - timestamp strategy"
+    columns:
+      - name: subscription_id
+        description: "Business subscription ID"
+        tests:
+          - not_null
+      - name: start_date
+        description: "Start of snapshot period"
+      - name: end_date
+        description: "End of snapshot period"
